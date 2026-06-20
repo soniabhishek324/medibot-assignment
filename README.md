@@ -87,6 +87,25 @@ The backend also applies role filtering inside `HybridRetriever.retrieve()` befo
 
 The assignment asks for Docling/HybridChunker and Qdrant hybrid storage. This implementation includes a structural parser that preserves heading context and metadata for all local PDFs/Markdown, plus BM25, optional sentence-transformer dense embeddings, and optional cross-encoder reranking. The code is designed to run locally without external infrastructure; Qdrant and Docling can be swapped in later by replacing `backend/app/ingestion.py` and `backend/app/retrieval.py` while preserving the API contract.
 
+
+## Local Verification
+
+Use these checks after setup to confirm the stack is healthy:
+
+```bash
+# Backend health check
+curl http://localhost:8000/health
+
+# Role-aware collection check
+curl http://localhost:8000/collections/nurse
+
+# Frontend development server
+cd frontend
+npm run dev
+```
+
+When testing RBAC, sign in with one of the demo users above and confirm that role-restricted prompts return an access-denied response instead of retrieved private content.
+
 ## Useful API Checks
 
 ```bash
